@@ -21,7 +21,7 @@ public class Class
     [ForeignKey("Tutor_ID")]
     public Tutor? Tutor { get; set; }
 
-    public List<ClassSchedule>? ClassSchedules { get; set; }
+    public List<ClassSchedule>? ClassSchedulesList { get; set; }
 
 
 }

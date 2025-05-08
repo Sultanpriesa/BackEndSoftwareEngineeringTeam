@@ -17,6 +17,6 @@ public class Student
     [ForeignKey("User_ID")]
     public User? User{ get; set; }
 
-    public List<ClassSchedule>? ClassSchedules{ get; set; }
+    public List<ClassSchedule>? ClassSchedulesList{ get; set; }
 
 }

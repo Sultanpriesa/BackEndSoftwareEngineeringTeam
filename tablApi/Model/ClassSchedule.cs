@@ -7,7 +7,11 @@ namespace tablApi.Model;
 public class ClassSchedule
 {
     [Key]
+    public int Schedule_ID { get; set; }
+
     public int Class_ID { get; set; }
+    [ForeignKey("Class_ID")]
+    public Class? Class{ get; set; }
 
 
     public int Student_ID { get; set; }
