@@ -13,7 +13,8 @@ public class Tutor
 
     public int User_ID { get; set; }
     [ForeignKey("User_ID")]
-    public User? User{ get; set; }
+    public User? User { get; set; }
 
-    public List<Class>? ClassList { get; set; }
+    // Navigation property for courses
+    public List<Class>? Courses { get; set; }
 }

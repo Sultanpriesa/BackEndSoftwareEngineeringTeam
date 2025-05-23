@@ -17,10 +17,25 @@ namespace tablApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ClassStudent", b =>
+                {
+                    b.Property<int>("EnrolledCLassClass_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EnrolledStudentsStudent_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnrolledCLassClass_ID", "EnrolledStudentsStudent_ID");
+
+                    b.HasIndex("EnrolledStudentsStudent_ID");
+
+                    b.ToTable("StudentClasses", (string)null);
+                });
 
             modelBuilder.Entity("tablApi.Model.Class", b =>
                 {
@@ -30,25 +45,29 @@ namespace tablApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Class_ID"));
 
-                    b.Property<string>("Class_desc")
+                    b.Property<string>("Class_Desc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Class_name")
+                    b.Property<string>("Class_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Class_yearLevel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Course_ID")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Room")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Tutor_ID")
                         .HasColumnType("int");
 
                     b.HasKey("Class_ID");
-
-                    b.HasIndex("Course_ID");
 
                     b.HasIndex("Tutor_ID");
 
@@ -58,46 +77,51 @@ namespace tablApi.Migrations
                         new
                         {
                             Class_ID = 1,
-                            Class_desc = "Basic Mathematics",
-                            Class_name = "Math 101",
+                            Class_Desc = "Advanced mathematics class",
+                            Class_Name = "Mathematics",
                             Class_yearLevel = 1,
-                            Course_ID = 1,
+                            EndDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 1
                         },
                         new
                         {
                             Class_ID = 2,
-                            Class_desc = "Introduction to Physics",
-                            Class_name = "Physics 101",
+                            Class_Desc = "Introduction to physics",
+                            Class_Name = "Physics",
                             Class_yearLevel = 1,
-                            Course_ID = 2,
+                            EndDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 1
                         },
                         new
                         {
                             Class_ID = 3,
-                            Class_desc = "Introduction to Programming",
-                            Class_name = "Programming 101",
+                            Class_Desc = "Programming fundamentals",
+                            Class_Name = "Computer Science",
                             Class_yearLevel = 1,
-                            Course_ID = 3,
+                            EndDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 2
                         },
                         new
                         {
                             Class_ID = 4,
-                            Class_desc = "Basic English",
-                            Class_name = "English 101",
+                            Class_Desc = "English literature and composition",
+                            Class_Name = "English",
                             Class_yearLevel = 1,
-                            Course_ID = 4,
+                            EndDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 2
                         },
                         new
                         {
                             Class_ID = 5,
-                            Class_desc = "World History",
-                            Class_name = "History 101",
+                            Class_Desc = "World history overview",
+                            Class_Name = "History",
                             Class_yearLevel = 1,
-                            Course_ID = 5,
+                            EndDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 1
                         });
                 });
@@ -113,20 +137,22 @@ namespace tablApi.Migrations
                     b.Property<int>("Class_ID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Student_ID")
+                    b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("Time")
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Room")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
                     b.HasKey("Schedule_ID");
 
                     b.HasIndex("Class_ID");
-
-                    b.HasIndex("Student_ID");
 
                     b.ToTable("ClassSchedules");
 
@@ -135,134 +161,136 @@ namespace tablApi.Migrations
                         {
                             Schedule_ID = 1,
                             Class_ID = 1,
-                            Date = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 1,
-                            Time = new TimeSpan(0, 9, 0, 0, 0)
+                            DayOfWeek = 1,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 101",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 2,
                             Class_ID = 1,
-                            Date = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 2,
-                            Time = new TimeSpan(0, 9, 0, 0, 0)
+                            DayOfWeek = 3,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 101",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 3,
-                            Class_ID = 2,
-                            Date = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 1,
-                            Time = new TimeSpan(0, 10, 0, 0, 0)
+                            Class_ID = 1,
+                            DayOfWeek = 5,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 101",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 4,
-                            Class_ID = 3,
-                            Date = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 3,
-                            Time = new TimeSpan(0, 11, 0, 0, 0)
+                            Class_ID = 2,
+                            DayOfWeek = 1,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 102",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 5,
-                            Class_ID = 4,
-                            Date = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 2,
-                            Time = new TimeSpan(0, 13, 0, 0, 0)
+                            Class_ID = 2,
+                            DayOfWeek = 3,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 102",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 6,
-                            Class_ID = 5,
-                            Date = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 3,
-                            Time = new TimeSpan(0, 14, 0, 0, 0)
+                            Class_ID = 2,
+                            DayOfWeek = 5,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 102",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 7,
-                            Class_ID = 1,
-                            Date = new DateTime(2024, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 3,
-                            Time = new TimeSpan(0, 9, 0, 0, 0)
+                            Class_ID = 3,
+                            DayOfWeek = 2,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 103",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 8,
-                            Class_ID = 2,
-                            Date = new DateTime(2024, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 2,
-                            Time = new TimeSpan(0, 10, 0, 0, 0)
+                            Class_ID = 3,
+                            DayOfWeek = 4,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 103",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 9,
                             Class_ID = 3,
-                            Date = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 1,
-                            Time = new TimeSpan(0, 11, 0, 0, 0)
+                            DayOfWeek = 5,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 103",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 10,
                             Class_ID = 4,
-                            Date = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Student_ID = 3,
-                            Time = new TimeSpan(0, 13, 0, 0, 0)
-                        });
-                });
-
-            modelBuilder.Entity("tablApi.Model.Course", b =>
-                {
-                    b.Property<int>("Course_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Course_ID"));
-
-                    b.Property<string>("Course_Desc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Course_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Course_ID");
-
-                    b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Course_ID = 1,
-                            Course_Desc = "Advanced mathematics course",
-                            Course_Name = "Mathematics"
+                            DayOfWeek = 1,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 104",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
-                            Course_ID = 2,
-                            Course_Desc = "Introduction to physics",
-                            Course_Name = "Physics"
+                            Schedule_ID = 11,
+                            Class_ID = 4,
+                            DayOfWeek = 2,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 104",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
-                            Course_ID = 3,
-                            Course_Desc = "Programming fundamentals",
-                            Course_Name = "Computer Science"
+                            Schedule_ID = 12,
+                            Class_ID = 4,
+                            DayOfWeek = 4,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 104",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
-                            Course_ID = 4,
-                            Course_Desc = "English literature and composition",
-                            Course_Name = "English"
+                            Schedule_ID = 13,
+                            Class_ID = 5,
+                            DayOfWeek = 2,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 105",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
-                            Course_ID = 5,
-                            Course_Desc = "World history overview",
-                            Course_Name = "History"
+                            Schedule_ID = 14,
+                            Class_ID = 5,
+                            DayOfWeek = 3,
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            Room = "Room 105",
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Schedule_ID = 15,
+                            Class_ID = 5,
+                            DayOfWeek = 5,
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            Room = "Room 105",
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         });
                 });
 
@@ -273,9 +301,6 @@ namespace tablApi.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Student_ID"));
-
-                    b.Property<int?>("ClassScheduleSchedule_ID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Student_LastName")
                         .IsRequired()
@@ -292,8 +317,6 @@ namespace tablApi.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Student_ID");
-
-                    b.HasIndex("ClassScheduleSchedule_ID");
 
                     b.HasIndex("User_ID")
                         .IsUnique();
@@ -432,21 +455,28 @@ namespace tablApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ClassStudent", b =>
+                {
+                    b.HasOne("tablApi.Model.Class", null)
+                        .WithMany()
+                        .HasForeignKey("EnrolledCLassClass_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tablApi.Model.Student", null)
+                        .WithMany()
+                        .HasForeignKey("EnrolledStudentsStudent_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("tablApi.Model.Class", b =>
                 {
-                    b.HasOne("tablApi.Model.Course", "Course")
-                        .WithMany("Classes")
-                        .HasForeignKey("Course_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("tablApi.Model.Tutor", "Tutor")
-                        .WithMany("ClassList")
+                        .WithMany("Courses")
                         .HasForeignKey("Tutor_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Course");
 
                     b.Navigation("Tutor");
                 });
@@ -454,32 +484,20 @@ namespace tablApi.Migrations
             modelBuilder.Entity("tablApi.Model.ClassSchedule", b =>
                 {
                     b.HasOne("tablApi.Model.Class", "Class")
-                        .WithMany("ClassSchedulesList")
+                        .WithMany("Schedules")
                         .HasForeignKey("Class_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("tablApi.Model.Student", "Student")
-                        .WithMany("ClassSchedulesList")
-                        .HasForeignKey("Student_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Class");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("tablApi.Model.Student", b =>
                 {
-                    b.HasOne("tablApi.Model.ClassSchedule", null)
-                        .WithMany("Students")
-                        .HasForeignKey("ClassScheduleSchedule_ID");
-
                     b.HasOne("tablApi.Model.User", "User")
                         .WithOne("Student")
                         .HasForeignKey("tablApi.Model.Student", "User_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -490,7 +508,7 @@ namespace tablApi.Migrations
                     b.HasOne("tablApi.Model.User", "User")
                         .WithOne("Tutor")
                         .HasForeignKey("tablApi.Model.Tutor", "User_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -498,27 +516,12 @@ namespace tablApi.Migrations
 
             modelBuilder.Entity("tablApi.Model.Class", b =>
                 {
-                    b.Navigation("ClassSchedulesList");
-                });
-
-            modelBuilder.Entity("tablApi.Model.ClassSchedule", b =>
-                {
-                    b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("tablApi.Model.Course", b =>
-                {
-                    b.Navigation("Classes");
-                });
-
-            modelBuilder.Entity("tablApi.Model.Student", b =>
-                {
-                    b.Navigation("ClassSchedulesList");
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("tablApi.Model.Tutor", b =>
                 {
-                    b.Navigation("ClassList");
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("tablApi.Model.User", b =>
