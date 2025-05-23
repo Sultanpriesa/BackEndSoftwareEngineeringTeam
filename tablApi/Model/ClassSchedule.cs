@@ -11,8 +11,16 @@ public class ClassSchedule
 
     public int Class_ID { get; set; }
     [ForeignKey("Class_ID")]
-    public Class? Class{ get; set; }
+    public Class? Class { get; set; }
 
+    public DayOfWeek DayOfWeek { get; set; }
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
+    public string? Room { get; set; }
+
+    public int Tutor_ID { get; set; }
+    [ForeignKey("Tutor_ID")]
+    public Tutor? Tutor { get; set; }
 
     public int Student_ID { get; set; }
     [ForeignKey("Student_ID")]

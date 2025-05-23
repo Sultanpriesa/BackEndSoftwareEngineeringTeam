@@ -21,7 +21,17 @@ public class Class
     [ForeignKey("Tutor_ID")]
     public Tutor? Tutor { get; set; }
 
-    public List<ClassSchedule>? ClassSchedulesList { get; set; }
+    // Schedule information
+    public DayOfWeek DayOfWeek { get; set; }
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
+    public string? Room { get; set; }
 
+    // Class period
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 
+    // Navigation properties
+    public List<ClassSchedule>? Schedules { get; set; }
+    public List<Student>? EnrolledStudents { get; set; }
 }

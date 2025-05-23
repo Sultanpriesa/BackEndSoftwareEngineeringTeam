@@ -15,8 +15,9 @@ public class Student
 
     public int User_ID { get; set; }
     [ForeignKey("User_ID")]
-    public User? User{ get; set; }
+    public User? User { get; set; }
 
-    public List<ClassSchedule>? ClassSchedulesList{ get; set; }
-
+    // Navigation properties
+    public List<Class>? EnrolledClasses { get; set; }
+    public List<ClassSchedule>? ClassSchedules { get; set; }
 }
