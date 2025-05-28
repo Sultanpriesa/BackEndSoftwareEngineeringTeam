@@ -12,7 +12,7 @@ public class User
 
     public required string User_password { get; set; }
     public required string User_email { get; set; }
-    public required string User_type { get; set; }
+    public required string User_type { get; set; }  // "Admin", "Tutor", "Student"
 
     public Tutor? Tutor { get; set; }
     public Student? Student { get; set; }

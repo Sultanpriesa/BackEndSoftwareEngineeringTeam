@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tablApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c63cb26feb679bf63df4d3fba6735b7e7f69cc06")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9fc41d25094baf4199053dd0407dbedb30f1840")]
 [assembly: System.Reflection.AssemblyProductAttribute("tablApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tablApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using tablApi.Data;
-
+using tablApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext")));
+builder.Services.AddScoped<ClassEntryGenerator>();
+builder.Services.AddHostedService<ClassEntryBackgroundService>();
 
 
 var app = builder.Build();
