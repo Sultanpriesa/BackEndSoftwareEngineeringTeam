@@ -25,14 +25,24 @@ namespace tablApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Students
+                .Include(s => s.User)
+                .Include(s => s.EnrolledClasses)
+                    .ThenInclude(c => c.Tutor)
+                .Include(s => s.ClassEntries)
+                .ToListAsync();
         }
 
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _context.Students
+                .Include(s => s.User)
+                .Include(s => s.EnrolledClasses)
+                    .ThenInclude(c => c.Tutor)
+                .Include(s => s.ClassEntries)
+                .FirstOrDefaultAsync(s => s.Student_ID == id);
 
             if (student == null)
             {
@@ -40,6 +50,39 @@ namespace tablApi.Controllers
             }
 
             return student;
+        }
+
+        // GET: api/Student/5/Classes
+        [HttpGet("{id}/Classes")]
+        public async Task<ActionResult<IEnumerable<Class>>> GetStudentClasses(int id)
+        {
+            var student = await _context.Students
+                .Include(s => s.EnrolledClasses)
+                    .ThenInclude(c => c.Tutor)
+                .FirstOrDefaultAsync(s => s.Student_ID == id);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return student.EnrolledClasses.ToList();
+        }
+
+        // GET: api/Student/5/ClassEntries
+        [HttpGet("{id}/ClassEntries")]
+        public async Task<ActionResult<IEnumerable<ClassEntry>>> GetStudentClassEntries(int id)
+        {
+            var student = await _context.Students
+                .Include(s => s.ClassEntries)
+                .FirstOrDefaultAsync(s => s.Student_ID == id);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return student.ClassEntries.ToList();
         }
 
         // PUT: api/Student/5

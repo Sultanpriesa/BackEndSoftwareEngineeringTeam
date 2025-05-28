@@ -24,6 +24,6 @@ public class Class
     public Tutor? Tutor { get; set; }
 
     // Navigation properties
-    public List<Student>? EnrolledStudents { get; set; }
-    public List<ClassSchedule>? Schedules { get; set; }
+    public ICollection<Student> EnrolledStudents { get; set; } = new List<Student>();
+    public ICollection<ClassSchedule> Schedules { get; set; } = new List<ClassSchedule>();
 }

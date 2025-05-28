@@ -130,82 +130,135 @@ public class ApplicationDbContext : DbContext
                 EndDate = endDate,
                 Room = "Room 102",
                 Tutor_ID = 2
+            },
+            new Class 
+            { 
+                Class_ID = 3,
+                Class_Name = "Chemistry 101",
+                Class_Desc = "Introduction to Chemistry",
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = "Room 103",
+                Tutor_ID = 1
+            },
+            new Class 
+            { 
+                Class_ID = 4,
+                Class_Name = "Biology 101",
+                Class_Desc = "Introduction to Biology",
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = "Room 104",
+                Tutor_ID = 2
+            },
+            new Class 
+            { 
+                Class_ID = 5,
+                Class_Name = "Computer Science 101",
+                Class_Desc = "Introduction to Programming",
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = "Room 105",
+                Tutor_ID = 1
             }
         );
 
-        modelBuilder.Entity<ClassSchedule>().HasData(
-            new ClassSchedule 
+        // Create schedules for each class (2 schedules per class)
+        var schedules = new List<ClassSchedule>();
+        var scheduleId = 1;
+        for (int classId = 1; classId <= 5; classId++)
+        {
+            // First schedule for each class
+            schedules.Add(new ClassSchedule 
             { 
-                Schedule_ID = 1,
+                Schedule_ID = scheduleId++,
                 DayOfWeek = DayOfWeek.Monday,
                 StartTime = new TimeSpan(9, 0, 0),
                 EndTime = new TimeSpan(10, 30, 0),
-                Class_ID = 1
-            },
-            new ClassSchedule 
+                Class_ID = classId
+            });
+            
+            // Second schedule for each class
+            schedules.Add(new ClassSchedule 
             { 
-                Schedule_ID = 2,
+                Schedule_ID = scheduleId++,
                 DayOfWeek = DayOfWeek.Wednesday,
                 StartTime = new TimeSpan(9, 0, 0),
                 EndTime = new TimeSpan(10, 30, 0),
-                Class_ID = 1
-            },
-            new ClassSchedule 
-            { 
-                Schedule_ID = 3,
-                DayOfWeek = DayOfWeek.Tuesday,
-                StartTime = new TimeSpan(13, 0, 0),
-                EndTime = new TimeSpan(14, 30, 0),
-                Class_ID = 2
-            },
-            new ClassSchedule 
-            { 
-                Schedule_ID = 4,
-                DayOfWeek = DayOfWeek.Thursday,
-                StartTime = new TimeSpan(13, 0, 0),
-                EndTime = new TimeSpan(14, 30, 0),
-                Class_ID = 2
-            }
-        );
+                Class_ID = classId
+            });
+        }
+        modelBuilder.Entity<ClassSchedule>().HasData(schedules);
 
-        modelBuilder.Entity<ClassEntry>().HasData(
-            new ClassEntry 
-            { 
-                ClassEntry_ID = 1,
-                Date = new DateTime(2024, 1, 1),
-                ClassSchedule_ID = 1
-            },
-            new ClassEntry 
-            { 
-                ClassEntry_ID = 2,
-                Date = new DateTime(2024, 1, 3),
-                ClassSchedule_ID = 2
-            },
-            new ClassEntry 
-            { 
-                ClassEntry_ID = 3,
-                Date = new DateTime(2024, 1, 2),
-                ClassSchedule_ID = 3
-            },
-            new ClassEntry 
-            { 
-                ClassEntry_ID = 4,
-                Date = new DateTime(2024, 1, 4),
-                ClassSchedule_ID = 4
+        // Create class entries for each schedule
+        var entries = new List<ClassEntry>();
+        var entryId = 1;
+        foreach (var schedule in schedules)
+        {
+            var currentDate = startDate;
+            while (currentDate <= endDate)
+            {
+                if (currentDate.DayOfWeek == schedule.DayOfWeek)
+                {
+                    entries.Add(new ClassEntry 
+                    { 
+                        ClassEntry_ID = entryId++,
+                        Date = currentDate,
+                        ClassSchedule_ID = schedule.Schedule_ID
+                    });
+                }
+                currentDate = currentDate.AddDays(1);
             }
-        );
+        }
+        modelBuilder.Entity<ClassEntry>().HasData(entries);
 
-        // Seed junction table data
+        // Seed junction table data - Enroll students in classes
         modelBuilder.Entity<ClassList>().HasData(
-            new ClassList { Student_ID = 1, Class_ID = 1 }, // Alice in Math
-            new ClassList { Student_ID = 1, Class_ID = 2 }, // Alice in Physics
-            new ClassList { Student_ID = 2, Class_ID = 1 }  // Bob in Math
+            // Alice's enrollments
+            new ClassList { Student_ID = 1, Class_ID = 1 }, // Math
+            new ClassList { Student_ID = 1, Class_ID = 2 }, // Physics
+            new ClassList { Student_ID = 1, Class_ID = 3 }, // Chemistry
+            new ClassList { Student_ID = 1, Class_ID = 5 }, // Computer Science
+            
+            // Bob's enrollments
+            new ClassList { Student_ID = 2, Class_ID = 1 }, // Math
+            new ClassList { Student_ID = 2, Class_ID = 3 }, // Chemistry
+            new ClassList { Student_ID = 2, Class_ID = 4 }, // Biology
+            new ClassList { Student_ID = 2, Class_ID = 5 }  // Computer Science
         );
 
-        modelBuilder.Entity<StudentClassEntry>().HasData(
-            new StudentClassEntry { Student_ID = 1, ClassEntry_ID = 1 }, // Alice in first Math class
-            new StudentClassEntry { Student_ID = 2, ClassEntry_ID = 1 }  // Bob in first Math class
-        );
+        // Seed StudentClassEntry data - Record student attendance
+        var studentEntries = new List<StudentClassEntry>();
+        foreach (var entry in entries)
+        {
+            // Get the class ID for this entry
+            var schedule = schedules.First(s => s.Schedule_ID == entry.ClassSchedule_ID);
+            var classId = schedule.Class_ID;
+
+            // Add entries for students enrolled in this class
+            var enrolledStudents = new[]
+            {
+                new { Student_ID = 1, Class_ID = 1 },
+                new { Student_ID = 1, Class_ID = 2 },
+                new { Student_ID = 1, Class_ID = 3 },
+                new { Student_ID = 1, Class_ID = 5 },
+                new { Student_ID = 2, Class_ID = 1 },
+                new { Student_ID = 2, Class_ID = 3 },
+                new { Student_ID = 2, Class_ID = 4 },
+                new { Student_ID = 2, Class_ID = 5 }
+            }.Where(cl => cl.Class_ID == classId)
+             .Select(cl => cl.Student_ID);
+
+            foreach (var studentId in enrolledStudents)
+            {
+                studentEntries.Add(new StudentClassEntry 
+                { 
+                    Student_ID = studentId,
+                    ClassEntry_ID = entry.ClassEntry_ID
+                });
+            }
+        }
+        modelBuilder.Entity<StudentClassEntry>().HasData(studentEntries);
     }
 }
 

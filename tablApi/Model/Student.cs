@@ -13,11 +13,11 @@ public class Student
     public required string Student_firstName { get; set; }
     public required string Student_LastName { get; set; }
 
-    public required int User_ID { get; set; }
+    public int User_ID { get; set; }
     [ForeignKey("User_ID")]
     public User? User { get; set; }
 
     // Navigation properties
-    public List<Class>? EnrolledClasses { get; set; }
-    public List<ClassEntry>? ClassEntries { get; set; }
+    public ICollection<Class> EnrolledClasses { get; set; } = new List<Class>();
+    public ICollection<ClassEntry> ClassEntries { get; set; } = new List<ClassEntry>();
 }
