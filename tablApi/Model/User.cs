@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-
-
+using System.Collections.Generic;
 
 namespace tablApi.Model;
 
@@ -14,8 +13,7 @@ public class User
     public required string User_email { get; set; }
     public required string User_type { get; set; }  // "Admin", "Tutor", "Student"
 
-    public Tutor? Tutor { get; set; }
+    // Navigation properties
     public Student? Student { get; set; }
-
-
+    public Tutor? Tutor { get; set; }
 }

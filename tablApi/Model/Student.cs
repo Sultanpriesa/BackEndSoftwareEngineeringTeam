@@ -12,7 +12,6 @@ public class Student
 
     public required string Student_firstName { get; set; }
     public required string Student_LastName { get; set; }
-    public required int student_yearLevel { get; set; }
 
     public required int User_ID { get; set; }
     [ForeignKey("User_ID")]

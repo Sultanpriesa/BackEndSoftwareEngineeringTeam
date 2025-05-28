@@ -12,6 +12,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Class> Classes { get; set; }
     public DbSet<ClassSchedule> ClassSchedules { get; set; }
     public DbSet<ClassEntry> ClassEntries { get; set; }
+    public DbSet<ClassList> ClassLists { get; set; }
+    public DbSet<StudentClassEntry> StudentClassEntries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,241 +24,204 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Class>().HasKey(e => e.Class_ID);
         modelBuilder.Entity<ClassSchedule>().HasKey(e => e.Schedule_ID);
         modelBuilder.Entity<ClassEntry>().HasKey(e => e.ClassEntry_ID);
+        modelBuilder.Entity<ClassList>().HasKey(e => new { e.Student_ID, e.Class_ID });
+        modelBuilder.Entity<StudentClassEntry>().HasKey(e => new { e.Student_ID, e.ClassEntry_ID });
 
-        // User-Student relationship (One-to-One)
+        // Configure relationships
+        // User to Student (One-to-One)
         modelBuilder.Entity<User>()
             .HasOne(u => u.Student)
             .WithOne(s => s.User)
-            .HasForeignKey<Student>(s => s.User_ID)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey<Student>(s => s.User_ID);
 
-        // User-Tutor relationship (One-to-One)
+        // User to Tutor (One-to-One)
         modelBuilder.Entity<User>()
             .HasOne(u => u.Tutor)
             .WithOne(t => t.User)
-            .HasForeignKey<Tutor>(t => t.User_ID)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey<Tutor>(t => t.User_ID);
 
-        // Class-Tutor relationship (Many-to-One)
-        modelBuilder.Entity<Class>()
-            .HasOne(c => c.Tutor)
-            .WithMany(t => t.Courses)
+        // Tutor to Classes (One-to-Many)
+        modelBuilder.Entity<Tutor>()
+            .HasMany(t => t.Classes)
+            .WithOne(c => c.Tutor)
             .HasForeignKey(c => c.Tutor_ID)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Class-Student relationship (Many-to-Many)
-        modelBuilder.Entity<Class>()
-            .HasMany(c => c.EnrolledStudents)
-            .WithMany(s => s.EnrolledClasses)
-            .UsingEntity(j => j.ToTable("ClassStudents"));
-
-        // Class-ClassSchedule relationship (One-to-Many)
+        // Class to ClassSchedules (One-to-Many)
         modelBuilder.Entity<Class>()
             .HasMany(c => c.Schedules)
             .WithOne(s => s.Class)
             .HasForeignKey(s => s.Class_ID)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
-        // ClassSchedule-ClassEntry relationship (One-to-Many)
+        // ClassSchedule to ClassEntries (One-to-Many)
         modelBuilder.Entity<ClassSchedule>()
             .HasMany(s => s.ClassEntries)
             .WithOne(e => e.ClassSchedule)
             .HasForeignKey(e => e.ClassSchedule_ID)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
-        // Class-ClassEntry relationship (One-to-Many)
-        modelBuilder.Entity<Class>()
-            .HasMany(c => c.ClassEntries)
-            .WithOne(e => e.Class)
-            .HasForeignKey(e => e.Class_ID)
-            .OnDelete(DeleteBehavior.Restrict);
+        // Student to Classes (Many-to-Many) - ClassList junction table
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.EnrolledClasses)
+            .WithMany(c => c.EnrolledStudents)
+            .UsingEntity<ClassList>(
+                j => j.HasOne(cl => cl.Class)
+                    .WithMany()
+                    .HasForeignKey(cl => cl.Class_ID),
+                j => j.HasOne(cl => cl.Student)
+                    .WithMany()
+                    .HasForeignKey(cl => cl.Student_ID)
+            );
 
-        // ClassEntry-Student relationship (Many-to-Many)
-        modelBuilder.Entity<ClassEntry>()
-            .HasMany(e => e.Students)
-            .WithMany(s => s.ClassEntries)
-            .UsingEntity(j => j.ToTable("ClassEntryStudents"));
+        // Student to ClassEntries (Many-to-Many) - StudentClassEntry junction table
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.ClassEntries)
+            .WithMany(e => e.Students)
+            .UsingEntity<StudentClassEntry>(
+                j => j.HasOne(sce => sce.ClassEntry)
+                    .WithMany()
+                    .HasForeignKey(sce => sce.ClassEntry_ID),
+                j => j.HasOne(sce => sce.Student)
+                    .WithMany()
+                    .HasForeignKey(sce => sce.Student_ID)
+            );
+
+        // Using static dates for seeding
+        var startDate = new DateTime(2024, 1, 1);
+        var endDate = new DateTime(2024, 4, 1);
 
         // Seed Data
         modelBuilder.Entity<User>().HasData(
-            new User { 
-                User_ID = 1, 
-                User_email = "admin@school.com", 
-                User_password = "admin123", 
-                User_type = "Admin" 
-            },
-            new User { 
-                User_ID = 2, 
-                User_email = "john.doe@school.com", 
-                User_password = "hashed_password_2", 
-                User_type = "Tutor" 
-            },
-            new User { 
-                User_ID = 3, 
-                User_email = "jane.smith@school.com", 
-                User_password = "hashed_password_3", 
-                User_type = "Tutor" 
-            },
-            new User { 
-                User_ID = 4, 
-                User_email = "alice@student.com", 
-                User_password = "hashed_password_4", 
-                User_type = "Student" 
-            },
-            new User { 
-                User_ID = 5, 
-                User_email = "bob@student.com", 
-                User_password = "hashed_password_5", 
-                User_type = "Student" 
-            },
-            new User { 
-                User_ID = 6, 
-                User_email = "charlie@student.com", 
-                User_password = "hashed_password_6", 
-                User_type = "Student" 
-            }
+            new User { User_ID = 1, User_email = "admin", User_password = "admin", User_type = "Admin" },
+            new User { User_ID = 2, User_email = "john.tutor@school.com", User_password = "tutor123", User_type = "Tutor" },
+            new User { User_ID = 3, User_email = "jane.tutor@school.com", User_password = "tutor123", User_type = "Tutor" },
+            new User { User_ID = 4, User_email = "alice.student@school.com", User_password = "student123", User_type = "Student" },
+            new User { User_ID = 5, User_email = "bob.student@school.com", User_password = "student123", User_type = "Student" }
         );
 
         modelBuilder.Entity<Tutor>().HasData(
-            new Tutor { 
-                Tutor_ID = 1, 
-                Tutor_firstName = "John", 
-                Tutor_LastName = "Doe", 
-                User_ID = 2 
-            },
-            new Tutor { 
-                Tutor_ID = 2, 
-                Tutor_firstName = "Jane", 
-                Tutor_LastName = "Smith", 
-                User_ID = 3 
-            }
+            new Tutor { Tutor_ID = 1, Tutor_firstName = "John", Tutor_LastName = "Smith", User_ID = 2 },
+            new Tutor { Tutor_ID = 2, Tutor_firstName = "Jane", Tutor_LastName = "Doe", User_ID = 3 }
         );
 
         modelBuilder.Entity<Student>().HasData(
-            new Student { 
-                Student_ID = 1, 
-                Student_firstName = "Alice", 
-                Student_LastName = "Johnson", 
-                student_yearLevel = 1, 
-                User_ID = 4 
-            },
-            new Student { 
-                Student_ID = 2, 
-                Student_firstName = "Bob", 
-                Student_LastName = "Williams", 
-                student_yearLevel = 2, 
-                User_ID = 5 
-            },
-            new Student { 
-                Student_ID = 3, 
-                Student_firstName = "Charlie", 
-                Student_LastName = "Brown", 
-                student_yearLevel = 1, 
-                User_ID = 6 
-            }
+            new Student { Student_ID = 1, Student_firstName = "Alice", Student_LastName = "Johnson", User_ID = 4 },
+            new Student { Student_ID = 2, Student_firstName = "Bob", Student_LastName = "Williams", User_ID = 5 }
         );
 
         modelBuilder.Entity<Class>().HasData(
-            new Class { 
-                Class_ID = 1, 
-                Class_Name = "Mathematics", 
-                Class_Desc = "Advanced mathematics class covering calculus and linear algebra",
-                Class_yearLevel = 1,
-                StartDate = new DateTime(2024, 5, 26),
-                EndDate = new DateTime(2024, 6, 20),
+            new Class 
+            { 
+                Class_ID = 1,
+                Class_Name = "Mathematics 101",
+                Class_Desc = "Introduction to Basic Mathematics",
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = "Room 101",
                 Tutor_ID = 1
             },
-            new Class { 
-                Class_ID = 2, 
-                Class_Name = "Physics", 
-                Class_Desc = "Introduction to physics covering mechanics and thermodynamics",
-                Class_yearLevel = 1,
-                StartDate = new DateTime(2024, 5, 26),
-                EndDate = new DateTime(2024, 6, 20),
-                Tutor_ID = 1
-            },
-            new Class { 
-                Class_ID = 3, 
-                Class_Name = "Computer Science", 
-                Class_Desc = "Programming fundamentals and data structures",
-                Class_yearLevel = 1,
-                StartDate = new DateTime(2024, 5, 26),
-                EndDate = new DateTime(2024, 6, 20),
+            new Class 
+            { 
+                Class_ID = 2,
+                Class_Name = "Physics 101",
+                Class_Desc = "Introduction to Physics",
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = "Room 102",
                 Tutor_ID = 2
             }
         );
 
         modelBuilder.Entity<ClassSchedule>().HasData(
-            // Mathematics Class Schedules
-            new ClassSchedule { 
-                Schedule_ID = 1, 
-                Class_ID = 1, 
-                DayOfWeek = DayOfWeek.Monday, 
-                StartTime = new TimeSpan(9, 0, 0), 
-                EndTime = new TimeSpan(11, 0, 0),
-                Room = "Room 101"
+            new ClassSchedule 
+            { 
+                Schedule_ID = 1,
+                DayOfWeek = DayOfWeek.Monday,
+                StartTime = new TimeSpan(9, 0, 0),
+                EndTime = new TimeSpan(10, 30, 0),
+                Class_ID = 1
             },
-            new ClassSchedule { 
-                Schedule_ID = 2, 
-                Class_ID = 1, 
-                DayOfWeek = DayOfWeek.Wednesday, 
-                StartTime = new TimeSpan(9, 0, 0), 
-                EndTime = new TimeSpan(11, 0, 0),
-                Room = "Room 101"
+            new ClassSchedule 
+            { 
+                Schedule_ID = 2,
+                DayOfWeek = DayOfWeek.Wednesday,
+                StartTime = new TimeSpan(9, 0, 0),
+                EndTime = new TimeSpan(10, 30, 0),
+                Class_ID = 1
             },
-            new ClassSchedule { 
-                Schedule_ID = 3, 
-                Class_ID = 1, 
-                DayOfWeek = DayOfWeek.Friday, 
-                StartTime = new TimeSpan(9, 0, 0), 
-                EndTime = new TimeSpan(11, 0, 0),
-                Room = "Room 101"
+            new ClassSchedule 
+            { 
+                Schedule_ID = 3,
+                DayOfWeek = DayOfWeek.Tuesday,
+                StartTime = new TimeSpan(13, 0, 0),
+                EndTime = new TimeSpan(14, 30, 0),
+                Class_ID = 2
             },
-
-            // Physics Class Schedules
-            new ClassSchedule { 
-                Schedule_ID = 4, 
-                Class_ID = 2, 
-                DayOfWeek = DayOfWeek.Monday, 
-                StartTime = new TimeSpan(13, 0, 0), 
-                EndTime = new TimeSpan(15, 0, 0),
-                Room = "Room 102"
-            },
-            new ClassSchedule { 
-                Schedule_ID = 5, 
-                Class_ID = 2, 
-                DayOfWeek = DayOfWeek.Wednesday, 
-                StartTime = new TimeSpan(13, 0, 0), 
-                EndTime = new TimeSpan(15, 0, 0),
-                Room = "Room 102"
-            },
-            new ClassSchedule { 
-                Schedule_ID = 6, 
-                Class_ID = 2, 
-                DayOfWeek = DayOfWeek.Friday, 
-                StartTime = new TimeSpan(13, 0, 0), 
-                EndTime = new TimeSpan(15, 0, 0),
-                Room = "Room 102"
-            },
-
-            // Computer Science Class Schedules
-            new ClassSchedule { 
-                Schedule_ID = 7, 
-                Class_ID = 3, 
-                DayOfWeek = DayOfWeek.Tuesday, 
-                StartTime = new TimeSpan(9, 0, 0), 
-                EndTime = new TimeSpan(11, 0, 0),
-                Room = "Room 103"
-            },
-            new ClassSchedule { 
-                Schedule_ID = 8, 
-                Class_ID = 3, 
-                DayOfWeek = DayOfWeek.Thursday, 
-                StartTime = new TimeSpan(9, 0, 0), 
-                EndTime = new TimeSpan(11, 0, 0),
-                Room = "Room 103"
+            new ClassSchedule 
+            { 
+                Schedule_ID = 4,
+                DayOfWeek = DayOfWeek.Thursday,
+                StartTime = new TimeSpan(13, 0, 0),
+                EndTime = new TimeSpan(14, 30, 0),
+                Class_ID = 2
             }
         );
+
+        modelBuilder.Entity<ClassEntry>().HasData(
+            new ClassEntry 
+            { 
+                ClassEntry_ID = 1,
+                Date = new DateTime(2024, 1, 1),
+                ClassSchedule_ID = 1
+            },
+            new ClassEntry 
+            { 
+                ClassEntry_ID = 2,
+                Date = new DateTime(2024, 1, 3),
+                ClassSchedule_ID = 2
+            },
+            new ClassEntry 
+            { 
+                ClassEntry_ID = 3,
+                Date = new DateTime(2024, 1, 2),
+                ClassSchedule_ID = 3
+            },
+            new ClassEntry 
+            { 
+                ClassEntry_ID = 4,
+                Date = new DateTime(2024, 1, 4),
+                ClassSchedule_ID = 4
+            }
+        );
+
+        // Seed junction table data
+        modelBuilder.Entity<ClassList>().HasData(
+            new ClassList { Student_ID = 1, Class_ID = 1 }, // Alice in Math
+            new ClassList { Student_ID = 1, Class_ID = 2 }, // Alice in Physics
+            new ClassList { Student_ID = 2, Class_ID = 1 }  // Bob in Math
+        );
+
+        modelBuilder.Entity<StudentClassEntry>().HasData(
+            new StudentClassEntry { Student_ID = 1, ClassEntry_ID = 1 }, // Alice in first Math class
+            new StudentClassEntry { Student_ID = 2, ClassEntry_ID = 1 }  // Bob in first Math class
+        );
     }
+}
+
+public class ClassList
+{
+    public int Student_ID { get; set; }
+    public int Class_ID { get; set; }
+    public Student? Student { get; set; }
+    public Class? Class { get; set; }
+}
+
+public class StudentClassEntry
+{
+    public int Student_ID { get; set; }
+    public int ClassEntry_ID { get; set; }
+    public Student? Student { get; set; }
+    public ClassEntry? ClassEntry { get; set; }
 }
 

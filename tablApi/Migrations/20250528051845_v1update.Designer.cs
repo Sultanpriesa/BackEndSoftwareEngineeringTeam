@@ -12,8 +12,8 @@ using tablApi.Data;
 namespace tablApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250528032951_v1Update")]
-    partial class v1Update
+    [Migration("20250528051845_v1update")]
+    partial class v1update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,34 +25,63 @@ namespace tablApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ClassEntryStudent", b =>
+            modelBuilder.Entity("tablApi.Data.ClassList", b =>
                 {
-                    b.Property<int>("ClassEntriesClassEntry_ID")
+                    b.Property<int>("Student_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentsStudent_ID")
+                    b.Property<int>("Class_ID")
                         .HasColumnType("int");
 
-                    b.HasKey("ClassEntriesClassEntry_ID", "StudentsStudent_ID");
+                    b.HasKey("Student_ID", "Class_ID");
 
-                    b.HasIndex("StudentsStudent_ID");
+                    b.HasIndex("Class_ID");
 
-                    b.ToTable("ClassEntryStudents", (string)null);
+                    b.ToTable("ClassLists");
+
+                    b.HasData(
+                        new
+                        {
+                            Student_ID = 1,
+                            Class_ID = 1
+                        },
+                        new
+                        {
+                            Student_ID = 1,
+                            Class_ID = 2
+                        },
+                        new
+                        {
+                            Student_ID = 2,
+                            Class_ID = 1
+                        });
                 });
 
-            modelBuilder.Entity("ClassStudent", b =>
+            modelBuilder.Entity("tablApi.Data.StudentClassEntry", b =>
                 {
-                    b.Property<int>("EnrolledClassesClass_ID")
+                    b.Property<int>("Student_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("EnrolledStudentsStudent_ID")
+                    b.Property<int>("ClassEntry_ID")
                         .HasColumnType("int");
 
-                    b.HasKey("EnrolledClassesClass_ID", "EnrolledStudentsStudent_ID");
+                    b.HasKey("Student_ID", "ClassEntry_ID");
 
-                    b.HasIndex("EnrolledStudentsStudent_ID");
+                    b.HasIndex("ClassEntry_ID");
 
-                    b.ToTable("StudentClasses", (string)null);
+                    b.ToTable("StudentClassEntries");
+
+                    b.HasData(
+                        new
+                        {
+                            Student_ID = 1,
+                            ClassEntry_ID = 1
+                        },
+                        new
+                        {
+                            Student_ID = 2,
+                            ClassEntry_ID = 1
+                        });
                 });
 
             modelBuilder.Entity("tablApi.Model.Class", b =>
@@ -71,11 +100,12 @@ namespace tablApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Class_yearLevel")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Room")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -93,31 +123,21 @@ namespace tablApi.Migrations
                         new
                         {
                             Class_ID = 1,
-                            Class_Desc = "Advanced mathematics class covering calculus and linear algebra",
-                            Class_Name = "Mathematics",
-                            Class_yearLevel = 1,
-                            EndDate = new DateTime(2024, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2024, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Class_Desc = "Introduction to Basic Mathematics",
+                            Class_Name = "Mathematics 101",
+                            EndDate = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Room = "Room 101",
+                            StartDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 1
                         },
                         new
                         {
                             Class_ID = 2,
-                            Class_Desc = "Introduction to physics covering mechanics and thermodynamics",
-                            Class_Name = "Physics",
-                            Class_yearLevel = 1,
-                            EndDate = new DateTime(2024, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2024, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Tutor_ID = 1
-                        },
-                        new
-                        {
-                            Class_ID = 3,
-                            Class_Desc = "Programming fundamentals and data structures",
-                            Class_Name = "Computer Science",
-                            Class_yearLevel = 1,
-                            EndDate = new DateTime(2024, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2024, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Class_Desc = "Introduction to Physics",
+                            Class_Name = "Physics 101",
+                            EndDate = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Room = "Room 102",
+                            StartDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Tutor_ID = 2
                         });
                 });
@@ -133,22 +153,40 @@ namespace tablApi.Migrations
                     b.Property<int>("ClassSchedule_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Class_ID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("ClassEntry_ID");
 
                     b.HasIndex("ClassSchedule_ID");
 
-                    b.HasIndex("Class_ID");
-
                     b.ToTable("ClassEntries");
+
+                    b.HasData(
+                        new
+                        {
+                            ClassEntry_ID = 1,
+                            ClassSchedule_ID = 1,
+                            Date = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ClassEntry_ID = 2,
+                            ClassSchedule_ID = 2,
+                            Date = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ClassEntry_ID = 3,
+                            ClassSchedule_ID = 3,
+                            Date = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ClassEntry_ID = 4,
+                            ClassSchedule_ID = 4,
+                            Date = new DateTime(2024, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("tablApi.Model.ClassSchedule", b =>
@@ -168,9 +206,6 @@ namespace tablApi.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
-                    b.Property<string>("Room")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
@@ -186,8 +221,7 @@ namespace tablApi.Migrations
                             Schedule_ID = 1,
                             Class_ID = 1,
                             DayOfWeek = 1,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            Room = "Room 101",
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
@@ -195,63 +229,24 @@ namespace tablApi.Migrations
                             Schedule_ID = 2,
                             Class_ID = 1,
                             DayOfWeek = 3,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            Room = "Room 101",
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 3,
-                            Class_ID = 1,
-                            DayOfWeek = 5,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            Room = "Room 101",
-                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
+                            Class_ID = 2,
+                            DayOfWeek = 2,
+                            EndTime = new TimeSpan(0, 14, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 4,
                             Class_ID = 2,
-                            DayOfWeek = 1,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            Room = "Room 102",
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Schedule_ID = 5,
-                            Class_ID = 2,
-                            DayOfWeek = 3,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            Room = "Room 102",
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Schedule_ID = 6,
-                            Class_ID = 2,
-                            DayOfWeek = 5,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            Room = "Room 102",
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Schedule_ID = 7,
-                            Class_ID = 3,
-                            DayOfWeek = 2,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            Room = "Room 103",
-                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Schedule_ID = 8,
-                            Class_ID = 3,
                             DayOfWeek = 4,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            Room = "Room 103",
-                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
+                            EndTime = new TimeSpan(0, 14, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
                         });
                 });
 
@@ -274,9 +269,6 @@ namespace tablApi.Migrations
                     b.Property<int>("User_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("student_yearLevel")
-                        .HasColumnType("int");
-
                     b.HasKey("Student_ID");
 
                     b.HasIndex("User_ID")
@@ -290,24 +282,14 @@ namespace tablApi.Migrations
                             Student_ID = 1,
                             Student_LastName = "Johnson",
                             Student_firstName = "Alice",
-                            User_ID = 4,
-                            student_yearLevel = 1
+                            User_ID = 4
                         },
                         new
                         {
                             Student_ID = 2,
                             Student_LastName = "Williams",
                             Student_firstName = "Bob",
-                            User_ID = 5,
-                            student_yearLevel = 2
-                        },
-                        new
-                        {
-                            Student_ID = 3,
-                            Student_LastName = "Brown",
-                            Student_firstName = "Charlie",
-                            User_ID = 6,
-                            student_yearLevel = 1
+                            User_ID = 5
                         });
                 });
 
@@ -341,14 +323,14 @@ namespace tablApi.Migrations
                         new
                         {
                             Tutor_ID = 1,
-                            Tutor_LastName = "Doe",
+                            Tutor_LastName = "Smith",
                             Tutor_firstName = "John",
                             User_ID = 2
                         },
                         new
                         {
                             Tutor_ID = 2,
-                            Tutor_LastName = "Smith",
+                            Tutor_LastName = "Doe",
                             Tutor_firstName = "Jane",
                             User_ID = 3
                         });
@@ -382,81 +364,82 @@ namespace tablApi.Migrations
                         new
                         {
                             User_ID = 1,
-                            User_email = "admin@school.com",
-                            User_password = "admin123",
+                            User_email = "admin",
+                            User_password = "admin",
                             User_type = "Admin"
                         },
                         new
                         {
                             User_ID = 2,
-                            User_email = "john.doe@school.com",
-                            User_password = "hashed_password_2",
+                            User_email = "john.tutor@school.com",
+                            User_password = "tutor123",
                             User_type = "Tutor"
                         },
                         new
                         {
                             User_ID = 3,
-                            User_email = "jane.smith@school.com",
-                            User_password = "hashed_password_3",
+                            User_email = "jane.tutor@school.com",
+                            User_password = "tutor123",
                             User_type = "Tutor"
                         },
                         new
                         {
                             User_ID = 4,
-                            User_email = "alice@student.com",
-                            User_password = "hashed_password_4",
+                            User_email = "alice.student@school.com",
+                            User_password = "student123",
                             User_type = "Student"
                         },
                         new
                         {
                             User_ID = 5,
-                            User_email = "bob@student.com",
-                            User_password = "hashed_password_5",
-                            User_type = "Student"
-                        },
-                        new
-                        {
-                            User_ID = 6,
-                            User_email = "charlie@student.com",
-                            User_password = "hashed_password_6",
+                            User_email = "bob.student@school.com",
+                            User_password = "student123",
                             User_type = "Student"
                         });
                 });
 
-            modelBuilder.Entity("ClassEntryStudent", b =>
+            modelBuilder.Entity("tablApi.Data.ClassList", b =>
                 {
-                    b.HasOne("tablApi.Model.ClassEntry", null)
+                    b.HasOne("tablApi.Model.Class", "Class")
                         .WithMany()
-                        .HasForeignKey("ClassEntriesClassEntry_ID")
+                        .HasForeignKey("Class_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("tablApi.Model.Student", null)
+                    b.HasOne("tablApi.Model.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentsStudent_ID")
+                        .HasForeignKey("Student_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("ClassStudent", b =>
+            modelBuilder.Entity("tablApi.Data.StudentClassEntry", b =>
                 {
-                    b.HasOne("tablApi.Model.Class", null)
+                    b.HasOne("tablApi.Model.ClassEntry", "ClassEntry")
                         .WithMany()
-                        .HasForeignKey("EnrolledClassesClass_ID")
+                        .HasForeignKey("ClassEntry_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("tablApi.Model.Student", null)
+                    b.HasOne("tablApi.Model.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("EnrolledStudentsStudent_ID")
+                        .HasForeignKey("Student_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ClassEntry");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("tablApi.Model.Class", b =>
                 {
                     b.HasOne("tablApi.Model.Tutor", "Tutor")
-                        .WithMany("Courses")
+                        .WithMany("Classes")
                         .HasForeignKey("Tutor_ID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -469,16 +452,8 @@ namespace tablApi.Migrations
                     b.HasOne("tablApi.Model.ClassSchedule", "ClassSchedule")
                         .WithMany("ClassEntries")
                         .HasForeignKey("ClassSchedule_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("tablApi.Model.Class", "Class")
-                        .WithMany("ClassEntries")
-                        .HasForeignKey("Class_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Class");
 
                     b.Navigation("ClassSchedule");
                 });
@@ -499,7 +474,7 @@ namespace tablApi.Migrations
                     b.HasOne("tablApi.Model.User", "User")
                         .WithOne("Student")
                         .HasForeignKey("tablApi.Model.Student", "User_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -510,7 +485,7 @@ namespace tablApi.Migrations
                     b.HasOne("tablApi.Model.User", "User")
                         .WithOne("Tutor")
                         .HasForeignKey("tablApi.Model.Tutor", "User_ID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -518,8 +493,6 @@ namespace tablApi.Migrations
 
             modelBuilder.Entity("tablApi.Model.Class", b =>
                 {
-                    b.Navigation("ClassEntries");
-
                     b.Navigation("Schedules");
                 });
 
@@ -530,7 +503,7 @@ namespace tablApi.Migrations
 
             modelBuilder.Entity("tablApi.Model.Tutor", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("Classes");
                 });
 
             modelBuilder.Entity("tablApi.Model.User", b =>

@@ -12,7 +12,6 @@ public class Class
 
     public required string Class_Name { get; set; }
     public required string Class_Desc { get; set; }
-    public required int Class_yearLevel { get; set; }
 
     // Class period
     public required DateTime StartDate { get; set; }
@@ -27,5 +26,4 @@ public class Class
     // Navigation properties
     public List<Student>? EnrolledStudents { get; set; }
     public List<ClassSchedule>? Schedules { get; set; }
-    public List<ClassEntry>? ClassEntries { get; set; }
 }

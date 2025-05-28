@@ -25,14 +25,22 @@ namespace tablApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
         {
-            return await _context.Classes.ToListAsync();
+            return await _context.Classes
+                .Include(c => c.Tutor)
+                .Include(c => c.EnrolledStudents)
+                .Include(c => c.Schedules)
+                .ToListAsync();
         }
 
         // GET: api/Class/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Class>> GetClass(int id)
         {
-            var @class = await _context.Classes.FindAsync(id);
+            var @class = await _context.Classes
+                .Include(c => c.Tutor)
+                .Include(c => c.EnrolledStudents)
+                .Include(c => c.Schedules)
+                .FirstOrDefaultAsync(c => c.Class_ID == id);
 
             if (@class == null)
             {

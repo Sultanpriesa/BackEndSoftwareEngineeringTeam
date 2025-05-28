@@ -16,5 +16,5 @@ public class Tutor
     public User? User { get; set; }
 
     // Navigation property for courses
-    public List<Class>? Courses { get; set; }
+    public List<Class>? Classes { get; set; }
 }
