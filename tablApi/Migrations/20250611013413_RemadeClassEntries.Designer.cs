@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tablApi.Data;
 
@@ -11,9 +12,11 @@ using tablApi.Data;
 namespace tablApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250611013413_RemadeClassEntries")]
+    partial class RemadeClassEntries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -501,11 +504,6 @@ namespace tablApi.Migrations
                         },
                         new
                         {
-                            Student_ID = 2,
-                            ClassEntry_ID = 54
-                        },
-                        new
-                        {
                             Student_ID = 1,
                             ClassEntry_ID = 55
                         },
@@ -763,6 +761,11 @@ namespace tablApi.Migrations
                         {
                             Student_ID = 2,
                             ClassEntry_ID = 80
+                        },
+                        new
+                        {
+                            Student_ID = 1,
+                            ClassEntry_ID = 81
                         },
                         new
                         {
@@ -896,18 +899,8 @@ namespace tablApi.Migrations
                         },
                         new
                         {
-                            Student_ID = 1,
-                            ClassEntry_ID = 107
-                        },
-                        new
-                        {
                             Student_ID = 2,
                             ClassEntry_ID = 107
-                        },
-                        new
-                        {
-                            Student_ID = 1,
-                            ClassEntry_ID = 108
                         },
                         new
                         {
@@ -1163,6 +1156,26 @@ namespace tablApi.Migrations
                         {
                             Student_ID = 2,
                             ClassEntry_ID = 133
+                        },
+                        new
+                        {
+                            Student_ID = 1,
+                            ClassEntry_ID = 134
+                        },
+                        new
+                        {
+                            Student_ID = 2,
+                            ClassEntry_ID = 134
+                        },
+                        new
+                        {
+                            Student_ID = 1,
+                            ClassEntry_ID = 135
+                        },
+                        new
+                        {
+                            Student_ID = 2,
+                            ClassEntry_ID = 135
                         });
                 });
 
@@ -1441,637 +1454,649 @@ namespace tablApi.Migrations
                         {
                             ClassEntry_ID = 28,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 1, 2, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 29,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 1, 9, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 30,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 1, 16, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 31,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 1, 23, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 22, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 32,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 1, 30, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 29, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 33,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 2, 6, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 5, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 34,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 2, 13, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 12, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 35,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 2, 20, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 19, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 36,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 2, 27, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 26, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 37,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 3, 5, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 4, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 38,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 3, 12, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 11, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 39,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 3, 19, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 18, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 40,
                             ClassSchedule_ID = 3,
-                            Date = new DateTime(2024, 3, 26, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 41,
-                            ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 1, 4, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 3,
+                            Date = new DateTime(2024, 4, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 42,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 43,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 1, 18, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 10, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 44,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 17, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 45,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 2, 1, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 24, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 46,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 2, 8, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 31, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 47,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 2, 15, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 7, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 48,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 14, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 49,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 2, 29, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 21, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 50,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 3, 7, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 28, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 51,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 3, 14, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 6, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 52,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 3, 21, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 53,
                             ClassSchedule_ID = 4,
-                            Date = new DateTime(2024, 3, 28, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 20, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 54,
-                            ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 1, 1, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 4,
+                            Date = new DateTime(2024, 3, 27, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 55,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 1, 8, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 56,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 1, 15, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 57,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 1, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 58,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 1, 29, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 22, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 59,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 2, 5, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 29, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 60,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 2, 12, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 5, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 61,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 2, 19, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 12, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 62,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 2, 26, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 19, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 63,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 3, 4, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 26, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 64,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 3, 11, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 4, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 65,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 3, 18, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 11, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 66,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 3, 25, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 18, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 67,
                             ClassSchedule_ID = 5,
-                            Date = new DateTime(2024, 4, 1, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 68,
-                            ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 1, 3, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 5,
+                            Date = new DateTime(2024, 4, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 69,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 1, 10, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 70,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 1, 17, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 10, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 71,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 1, 24, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 17, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 72,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 1, 31, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 24, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 73,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 2, 7, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 31, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 74,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 2, 14, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 7, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 75,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 2, 21, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 14, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 76,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 2, 28, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 21, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 77,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 3, 6, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 28, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 78,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 3, 13, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 6, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 79,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 3, 20, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 80,
                             ClassSchedule_ID = 6,
-                            Date = new DateTime(2024, 3, 27, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 20, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 81,
-                            ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 6,
+                            Date = new DateTime(2024, 3, 27, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 82,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 1, 9, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 83,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 1, 16, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 84,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 1, 23, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 85,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 1, 30, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 22, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 86,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 2, 6, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 29, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 87,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 2, 13, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 5, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 88,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 2, 20, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 12, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 89,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 2, 27, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 19, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 90,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 3, 5, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 26, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 91,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 3, 12, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 4, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 92,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 3, 19, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 11, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 93,
                             ClassSchedule_ID = 7,
-                            Date = new DateTime(2024, 3, 26, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 18, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 94,
-                            ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 1, 4, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 7,
+                            Date = new DateTime(2024, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 95,
-                            ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 1, 11, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 7,
+                            Date = new DateTime(2024, 4, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 96,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 1, 18, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 97,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 1, 25, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 10, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 98,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 2, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 17, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 99,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 2, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 24, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 100,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 2, 15, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 31, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 101,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 7, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 102,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 2, 29, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 14, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 103,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 3, 7, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 21, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 104,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 3, 14, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 28, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 105,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 3, 21, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 6, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 106,
                             ClassSchedule_ID = 8,
-                            Date = new DateTime(2024, 3, 28, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 107,
-                            ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 1, 1, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 8,
+                            Date = new DateTime(2024, 3, 20, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 108,
-                            ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 1, 8, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 8,
+                            Date = new DateTime(2024, 3, 27, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 109,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 1, 15, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 110,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 1, 22, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 111,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 1, 29, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 112,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 2, 5, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 22, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 113,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 2, 12, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 29, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 114,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 2, 19, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 5, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 115,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 2, 26, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 12, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 116,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 3, 4, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 19, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 117,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 3, 11, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 26, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 118,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 3, 18, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 4, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 119,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 3, 25, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 11, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 120,
                             ClassSchedule_ID = 9,
-                            Date = new DateTime(2024, 4, 1, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 18, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 121,
-                            ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 1, 3, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 9,
+                            Date = new DateTime(2024, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 122,
-                            ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 1, 10, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            ClassSchedule_ID = 9,
+                            Date = new DateTime(2024, 4, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 123,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 1, 17, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 124,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 1, 24, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 10, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 125,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 1, 31, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 17, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 126,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 2, 7, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 24, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 127,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 2, 14, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 1, 31, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 128,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 2, 21, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 7, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 129,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 14, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 130,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 3, 6, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 21, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 131,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 3, 13, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 2, 28, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 132,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 3, 20, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 6, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ClassEntry_ID = 133,
                             ClassSchedule_ID = 10,
-                            Date = new DateTime(2024, 3, 27, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            Date = new DateTime(2024, 3, 13, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ClassEntry_ID = 134,
+                            ClassSchedule_ID = 10,
+                            Date = new DateTime(2024, 3, 20, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ClassEntry_ID = 135,
+                            ClassSchedule_ID = 10,
+                            Date = new DateTime(2024, 3, 27, 9, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -2107,7 +2132,7 @@ namespace tablApi.Migrations
                             Schedule_ID = 1,
                             Class_ID = 1,
                             DayOfWeek = 1,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
@@ -2115,55 +2140,55 @@ namespace tablApi.Migrations
                             Schedule_ID = 2,
                             Class_ID = 1,
                             DayOfWeek = 3,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 3,
                             Class_ID = 2,
-                            DayOfWeek = 2,
-                            EndTime = new TimeSpan(0, 13, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 11, 0, 0, 0)
+                            DayOfWeek = 1,
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 4,
                             Class_ID = 2,
-                            DayOfWeek = 4,
-                            EndTime = new TimeSpan(0, 13, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 11, 0, 0, 0)
+                            DayOfWeek = 3,
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 5,
                             Class_ID = 3,
                             DayOfWeek = 1,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 6,
                             Class_ID = 3,
                             DayOfWeek = 3,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 13, 0, 0, 0)
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 7,
                             Class_ID = 4,
-                            DayOfWeek = 2,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            DayOfWeek = 1,
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 8,
                             Class_ID = 4,
-                            DayOfWeek = 4,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            DayOfWeek = 3,
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
                             StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
@@ -2171,16 +2196,16 @@ namespace tablApi.Migrations
                             Schedule_ID = 9,
                             Class_ID = 5,
                             DayOfWeek = 1,
-                            EndTime = new TimeSpan(0, 13, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 11, 0, 0, 0)
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         },
                         new
                         {
                             Schedule_ID = 10,
                             Class_ID = 5,
                             DayOfWeek = 3,
-                            EndTime = new TimeSpan(0, 13, 0, 0, 0),
-                            StartTime = new TimeSpan(0, 11, 0, 0, 0)
+                            EndTime = new TimeSpan(0, 10, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
                         });
                 });
 

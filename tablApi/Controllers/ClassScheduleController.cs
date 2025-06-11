@@ -25,14 +25,20 @@ namespace tablApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClassSchedule>>> GetClassSchedules()
         {
-            return await _context.ClassSchedules.ToListAsync();
+            return await _context.ClassSchedules
+                .Include(cs => cs.Class)
+                .Include(cs => cs.ClassEntries)
+                .ToListAsync();
         }
 
         // GET: api/ClassSchedule/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ClassSchedule>> GetClassSchedule(int id)
         {
-            var classSchedule = await _context.ClassSchedules.FindAsync(id);
+            var classSchedule = await _context.ClassSchedules
+                .Include(cs => cs.Class)
+                .Include(cs => cs.ClassEntries)
+                .FirstOrDefaultAsync(cs => cs.Schedule_ID == id);
 
             if (classSchedule == null)
             {

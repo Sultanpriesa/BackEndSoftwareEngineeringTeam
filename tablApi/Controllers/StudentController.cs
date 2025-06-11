@@ -42,6 +42,7 @@ namespace tablApi.Controllers
                 .Include(s => s.EnrolledClasses)
                     .ThenInclude(c => c.Tutor)
                 .Include(s => s.ClassEntries)
+                    .ThenInclude(ce => ce.ClassSchedule)
                 .FirstOrDefaultAsync(s => s.Student_ID == id);
 
             if (student == null)
