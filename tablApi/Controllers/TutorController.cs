@@ -25,14 +25,20 @@ namespace tablApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tutor>>> GetTutors()
         {
-            return await _context.Tutors.ToListAsync();
+            return await _context.Tutors
+                .Include(t => t.User)
+                .Include(t => t.Classes)
+                .ToListAsync();
         }
 
         // GET: api/Tutor/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Tutor>> GetTutor(int id)
         {
-            var tutor = await _context.Tutors.FindAsync(id);
+            var tutor = await _context.Tutors
+                .Include(t => t.User)
+                .Include(t => t.Classes)
+                .FirstOrDefaultAsync(t => t.Tutor_ID == id);
 
             if (tutor == null)
             {

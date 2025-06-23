@@ -164,46 +164,136 @@ public class ApplicationDbContext : DbContext
         );
 
         // Create schedules for each class (2 schedules per class)
-        var schedules = new List<ClassSchedule>();
-        var scheduleId = 1;
-        for (int classId = 1; classId <= 5; classId++)
-        {
-            // First schedule for each class
-            schedules.Add(new ClassSchedule 
+        modelBuilder.Entity<ClassSchedule>().HasData(
+            // Mathematics 101 Schedules
+            new ClassSchedule 
             { 
-                Schedule_ID = scheduleId++,
+                Schedule_ID = 1,
                 DayOfWeek = DayOfWeek.Monday,
                 StartTime = new TimeSpan(9, 0, 0),
-                EndTime = new TimeSpan(10, 30, 0),
-                Class_ID = classId
-            });
-            
-            // Second schedule for each class
-            schedules.Add(new ClassSchedule 
+                EndTime = new TimeSpan(11, 0, 0),
+                Class_ID = 1
+            },
+            new ClassSchedule 
             { 
-                Schedule_ID = scheduleId++,
+                Schedule_ID = 2,
                 DayOfWeek = DayOfWeek.Wednesday,
                 StartTime = new TimeSpan(9, 0, 0),
-                EndTime = new TimeSpan(10, 30, 0),
-                Class_ID = classId
-            });
-        }
-        modelBuilder.Entity<ClassSchedule>().HasData(schedules);
+                EndTime = new TimeSpan(11, 0, 0),
+                Class_ID = 1
+            },
+
+            // Physics 101 Schedules
+            new ClassSchedule 
+            { 
+                Schedule_ID = 3,
+                DayOfWeek = DayOfWeek.Tuesday,
+                StartTime = new TimeSpan(11, 0, 0),
+                EndTime = new TimeSpan(13, 0, 0),
+                Class_ID = 2
+            },
+            new ClassSchedule 
+            { 
+                Schedule_ID = 4,
+                DayOfWeek = DayOfWeek.Thursday,
+                StartTime = new TimeSpan(11, 0, 0),
+                EndTime = new TimeSpan(13, 0, 0),
+                Class_ID = 2
+            },
+
+            // Chemistry 101 Schedules
+            new ClassSchedule 
+            { 
+                Schedule_ID = 5,
+                DayOfWeek = DayOfWeek.Monday,
+                StartTime = new TimeSpan(13, 0, 0),
+                EndTime = new TimeSpan(15, 0, 0),
+                Class_ID = 3
+            },
+            new ClassSchedule 
+            { 
+                Schedule_ID = 6,
+                DayOfWeek = DayOfWeek.Wednesday,
+                StartTime = new TimeSpan(13, 0, 0),
+                EndTime = new TimeSpan(15, 0, 0),
+                Class_ID = 3
+            },
+
+            // Biology 101 Schedules
+            new ClassSchedule 
+            { 
+                Schedule_ID = 7,
+                DayOfWeek = DayOfWeek.Tuesday,
+                StartTime = new TimeSpan(9, 0, 0),
+                EndTime = new TimeSpan(11, 0, 0),
+                Class_ID = 4
+            },
+            new ClassSchedule 
+            { 
+                Schedule_ID = 8,
+                DayOfWeek = DayOfWeek.Thursday,
+                StartTime = new TimeSpan(9, 0, 0),
+                EndTime = new TimeSpan(11, 0, 0),
+                Class_ID = 4
+            },
+
+            // Computer Science 101 Schedules
+            new ClassSchedule 
+            { 
+                Schedule_ID = 9,
+                DayOfWeek = DayOfWeek.Monday,
+                StartTime = new TimeSpan(11, 0, 0),
+                EndTime = new TimeSpan(13, 0, 0),
+                Class_ID = 5
+            },
+            new ClassSchedule 
+            { 
+                Schedule_ID = 10,
+                DayOfWeek = DayOfWeek.Wednesday,
+                StartTime = new TimeSpan(11, 0, 0),
+                EndTime = new TimeSpan(13, 0, 0),
+                Class_ID = 5
+            }
+        );
 
         // Create class entries for each schedule
         var entries = new List<ClassEntry>();
         var entryId = 1;
-        foreach (var schedule in schedules)
+        
+        // Get all schedules from the database
+        var allSchedules = new[]
+        {
+            // Mathematics 101 Schedules
+            new { Schedule_ID = 1, DayOfWeek = DayOfWeek.Monday, StartTime = new TimeSpan(9, 0, 0), Class_ID = 1 },
+            new { Schedule_ID = 2, DayOfWeek = DayOfWeek.Wednesday, StartTime = new TimeSpan(9, 0, 0), Class_ID = 1 },
+            // Physics 101 Schedules
+            new { Schedule_ID = 3, DayOfWeek = DayOfWeek.Tuesday, StartTime = new TimeSpan(11, 0, 0), Class_ID = 2 },
+            new { Schedule_ID = 4, DayOfWeek = DayOfWeek.Thursday, StartTime = new TimeSpan(11, 0, 0), Class_ID = 2 },
+            // Chemistry 101 Schedules
+            new { Schedule_ID = 5, DayOfWeek = DayOfWeek.Monday, StartTime = new TimeSpan(13, 0, 0), Class_ID = 3 },
+            new { Schedule_ID = 6, DayOfWeek = DayOfWeek.Wednesday, StartTime = new TimeSpan(13, 0, 0), Class_ID = 3 },
+            // Biology 101 Schedules
+            new { Schedule_ID = 7, DayOfWeek = DayOfWeek.Tuesday, StartTime = new TimeSpan(9, 0, 0), Class_ID = 4 },
+            new { Schedule_ID = 8, DayOfWeek = DayOfWeek.Thursday, StartTime = new TimeSpan(9, 0, 0), Class_ID = 4 },
+            // Computer Science 101 Schedules
+            new { Schedule_ID = 9, DayOfWeek = DayOfWeek.Monday, StartTime = new TimeSpan(11, 0, 0), Class_ID = 5 },
+            new { Schedule_ID = 10, DayOfWeek = DayOfWeek.Wednesday, StartTime = new TimeSpan(11, 0, 0), Class_ID = 5 }
+        };
+
+        foreach (var schedule in allSchedules)
         {
             var currentDate = startDate;
             while (currentDate <= endDate)
             {
                 if (currentDate.DayOfWeek == schedule.DayOfWeek)
                 {
+                    // Create a DateTime that combines the date with the schedule's start time
+                    var entryDateTime = currentDate.Date + schedule.StartTime;
+                    
                     entries.Add(new ClassEntry 
                     { 
                         ClassEntry_ID = entryId++,
-                        Date = currentDate,
+                        Date = entryDateTime,
                         ClassSchedule_ID = schedule.Schedule_ID
                     });
                 }
@@ -232,7 +322,7 @@ public class ApplicationDbContext : DbContext
         foreach (var entry in entries)
         {
             // Get the class ID for this entry
-            var schedule = schedules.First(s => s.Schedule_ID == entry.ClassSchedule_ID);
+            var schedule = allSchedules.First(s => s.Schedule_ID == entry.ClassSchedule_ID);
             var classId = schedule.Class_ID;
 
             // Add entries for students enrolled in this class
