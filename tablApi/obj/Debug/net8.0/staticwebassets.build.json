@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "RHxMtMpfl5hm6nhOqBiC5Dmb9BPTHW2Lb3akAMc3sBI=",
+  "Hash": "CW6BPM77c/zJcBGxo9at98HDwJ4OK6QHBYd6ImKfrkw=",
   "Source": "tablApi",
   "BasePath": "_content/tablApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }
